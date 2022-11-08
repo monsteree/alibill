@@ -1,0 +1,20 @@
+feign:
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+  compression:
+    request:
+      enabled: false
+    response:
+      enabled: false
+
+
+#开启优雅关闭方式
+endpoints:
+  shutdown:
+    enabled: false
+#关闭安全认证
+management:
+  security:
+    enabled: false
