@@ -1,0 +1,37 @@
+feign:
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+  compression:
+    request:
+      enabled: false
+    response:
+      enabled: false
+
+
+#开启优雅关闭方式
+endpoints:
+  shutdown:
+    enabled: false
+#关闭安全认证
+management:
+  security:
+    enabled: false
+
+
+
+server:
+  port: 18700
+eureka:
+  instance:
+    appname: billbatch
+    lease-expiration-duration-in-seconds: 90
+    lease-renewal-interval-in-seconds: 30
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://192.168.2.200:8761/eureka/
