@@ -94,6 +94,11 @@
             <artifactId>ojdbc8</artifactId>
             <version>12.2.0.1.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.1.2</version>
+        </dependency>
     </dependencies>
 
     <build>
