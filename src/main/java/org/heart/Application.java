@@ -18,7 +18,7 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 @EnableAsync
 public class Application {
 
-    public static void main(String[] args) throws Exception
+    public static void main(String[] args)
     {
         SpringApplication application = new SpringApplication(Application.class);
         application.setApplicationContextClass(AnnotationConfigWebApplicationContext.class);

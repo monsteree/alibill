@@ -16,10 +16,6 @@ public class loginController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(loginController.class);
 
-
-
-
-
     @Autowired
     private MailService mailService;
 
