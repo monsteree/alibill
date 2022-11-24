@@ -10,7 +10,7 @@ public interface BusinessService {
      * @param message
      * @throws Exception
      */
-    void getMailInfo(Message[] message);
+    void getMailInfo(Message[] message, String mailUsername);
 
 
     /**
@@ -18,5 +18,5 @@ public interface BusinessService {
      * @param sendName
      * @param part
      */
-    void alipayBusiness(String sendName, Part part);
+    void alipayBusiness(String sendName, Part part, String mailUsername);
 }

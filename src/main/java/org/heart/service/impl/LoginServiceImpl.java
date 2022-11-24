@@ -1,9 +1,12 @@
 package org.heart.service.impl;
 
+import org.heart.config.UserinfoConfig;
 import org.heart.controller.loginController;
+import org.heart.dto.BillUserinfoDTO;
 import org.heart.service.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -18,14 +21,11 @@ public class LoginServiceImpl implements LoginService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginServiceImpl.class);
 
-    @Value("${mailUsername}")
-    private String username;
-
-    @Value("${password}")
-    private String password;
+    @Autowired
+    private UserinfoConfig userinfoConfig;
 
     @Override
-    public Message[] login() {
+    public Message[] login(String mailUsername) {
         try {
             String host = "pop.qq.com";
             Properties p = new Properties();
@@ -35,11 +35,10 @@ public class LoginServiceImpl implements LoginService {
             p.setProperty("mail.pop3.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
             p.setProperty("mail.pop3.socketFactory.fallback", "true");
             p.setProperty("mail.pop3.socketFactory.port", "995");
-
             Session session = Session.getDefaultInstance(p, null);
             Store store = session.getStore("pop3");
-            store.connect(host, username, password);
-
+            BillUserinfoDTO billUserinfoDTO = userinfoConfig.searchUserinfo(mailUsername);
+            store.connect(host, mailUsername, billUserinfoDTO.getPassword());
             Folder folder = store.getFolder("INBOX");
             folder.open(Folder.READ_ONLY);
             Message[] message = folder.getMessages();

@@ -1,5 +1,7 @@
 package org.heart.service.impl;
 
+import org.heart.config.UserinfoConfig;
+import org.heart.dto.BillUserinfoDTO;
 import org.heart.service.MailService;
 import org.heart.service.BusinessService;
 import org.heart.service.ZipService;
@@ -25,17 +27,17 @@ public class BusinessServiceImpl implements BusinessService {
     @Autowired
     private ZipService zipService;
 
-    @Value("${aliBillPassword}")
-    private String aliBillPassword;
-
     @Value("${AttachPath}")
     private String AttachPath;
 
+    @Autowired
+    private UserinfoConfig userinfoConfig;
+
     @Override
-    public void getMailInfo(Message[] message) {
+    public void getMailInfo(Message[] message, String mailUsername) {
         try {
             for (int i = 0; i < message.length; i++) {
-                this.alipayBusiness(mailService.getFrom((MimeMessage) message[i]), message[i]);
+                this.alipayBusiness(mailService.getFrom((MimeMessage) message[i]), message[i], mailUsername);
             }
         } catch (Exception e) {
             LOGGER.error("BusinessServiceImpl.getMailInfo error", e);
@@ -44,7 +46,7 @@ public class BusinessServiceImpl implements BusinessService {
     }
 
     @Override
-    public void alipayBusiness(String sendName, Part part) {
+    public void alipayBusiness(String sendName, Part part, String mailUsername) {
         try {
             //获取支付宝账单
             if (sendName.indexOf("支付宝提醒") != -1) {
@@ -55,8 +57,9 @@ public class BusinessServiceImpl implements BusinessService {
                     if (null == storeFile) {
                         return;
                     }
+                    BillUserinfoDTO billUserinfoDTO = userinfoConfig.searchUserinfo(mailUsername);
                     //解压附件
-                    zipService.unZip(storeFile, AttachPath + File.separator + "bill", aliBillPassword);
+                    zipService.unZip(storeFile, AttachPath + File.separator + "bill", billUserinfoDTO.getAliBillPassword());
 
 
 

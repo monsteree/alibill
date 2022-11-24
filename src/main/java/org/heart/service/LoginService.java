@@ -8,5 +8,5 @@ public interface LoginService {
      * 登录
      * @return
      */
-    Message[] login();
+    Message[] login(String mailUsername);
 }

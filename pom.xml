@@ -100,6 +100,13 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.1.2</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.bumptech.glide/okhttp3-integration -->
+        <dependency>
+            <groupId>com.github.bumptech.glide</groupId>
+            <artifactId>okhttp3-integration</artifactId>
+            <version>4.11.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -109,5 +116,20 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/lib</directory>
+                <targetPath>BOOT-INF/lib/</targetPath>
+                <includes>
+                    <include>**/*.jar</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
     </build>
+
+
 </project>

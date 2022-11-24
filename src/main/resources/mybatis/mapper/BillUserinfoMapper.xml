@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.heart.dao.BillUserinfoDao">
+
+    <select id="queryAll" resultType="org.heart.dto.BillUserinfoDTO">
+        SELECT
+            MAIL_USERNAME AS mailUsername,
+            "PASSWORD" AS password,
+            ALI_BILL_PASSWORD AS aliBillPassword,
+            CREATE_TIME as createTime
+        FROM
+            TBL_BILL_USERINFO
+    </select>
+
+    <select id="queryByMailName" resultType="org.heart.dto.BillUserinfoDTO" parameterType="org.heart.dto.BillUserinfoDTO">
+        SELECT
+            MAIL_USERNAME AS mailUsername,
+            "PASSWORD" AS password,
+            ALI_BILL_PASSWORD AS aliBillPassword,
+            CREATE_TIME as createTime
+        FROM
+            TBL_BILL_USERINFO
+        where
+            MAIL_USERNAME = #{mailUsername}
+    </select>
+</mapper>
