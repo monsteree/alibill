@@ -2,11 +2,9 @@ package org.heart.controller;
 
 
 import org.heart.dao.BillUserinfoDao;
-import org.heart.dto.BillUserinfoDTO;
 import org.heart.service.BusinessService;
 import org.heart.service.LoginService;
 import org.heart.service.MailService;
-import org.heart.utils.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.mail.Message;
-import java.util.List;
 
 @RestController
-public class loginController {
+public class LoginController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(loginController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
     private MailService mailService;
