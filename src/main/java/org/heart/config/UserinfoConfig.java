@@ -21,13 +21,13 @@ public class UserinfoConfig {
     @Autowired
     private BillUserinfoDao billUserinfoDao;
 
-//    @PostConstruct
-//    public void init(){
-//        billUserinfoDao.queryAll().forEach(a -> {
-//            userinfos.put(a.getMailUsername(), a);
-//            LOGGER.info("用户{ }init",a.getMailUsername());
-//        });
-//    }
+    @PostConstruct
+    public void init(){
+        billUserinfoDao.queryAll().forEach(a -> {
+            userinfos.put(a.getMailUsername(), a);
+            LOGGER.info("用户[{}]init",a.getMailUsername());
+        });
+    }
 
     /**
      * 查询用户信息
