@@ -18,7 +18,7 @@ public class ZipServiceImpl implements ZipService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ZipServiceImpl.class);
 
     @Override
-    public void unZip(String source, String dest, String password) {
+    public String unZip(String source, String dest, String password) {
         File zipFile = new File(source);
         try {
             // 首先创建ZipFile指向磁盘上的.zip文件
@@ -49,8 +49,10 @@ public class ZipServiceImpl implements ZipService {
             extractedFileList.forEach(a -> {
                 LOGGER.info("{}文件解压成功!", a.getAbsolutePath());
             });
+            return extractedFileList.get(0).getAbsolutePath();
         } catch (ZipException e) {
             LOGGER.error("ZipServiceImpl.unZip error", e);
+            return null;
         }
     }
 

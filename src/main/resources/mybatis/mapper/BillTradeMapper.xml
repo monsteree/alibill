@@ -1,8 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.jiuyv.etc.Blacklist.Dao.BlacklistCardFullLocalDao">
+<mapper namespace="org.heart.dao.BillTradeDao">
 
+    <insert id="insert" parameterType="org.heart.dto.BillTradeDTO">
+
+    </insert>
+
+    <update id="merge" parameterType="org.heart.dto.BillTradeDTO">
+        merge into TBL_BILL_TRADE t USING(select #{tradeOrderId} as tradeOrderId from dual) t1
+            on(t.TRADE_ORDERID = t1.tradeOrderId)
+            when not matched then insert
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            INCOME_EXPENSES,
+            TRADE_ACCOUNT,
+            PRODUCT_DESCRIPTION,
+            PAYMENT_METHOD,
+            AMOUNT,
+            TRADE_STATUS,
+            TRADE_TYPE,
+            TRADE_ORDERID,
+            MERCHANT_ORDERID,
+            TRADE_TIME,
+            CREATE_TIME,
+            USERID,
+            INVALID_STATE,
+            MERCHANT_NAME
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{incomeExpenses},
+            #{tradeAccount},
+            #{productDescription},
+            #{paymentMethod},
+            #{amount},
+            #{tradeStatus},
+            #{tradeType},
+            #{tradeOrderId},
+            #{merchantOrderId},
+            #{tradeTime},
+            #{createTime},
+            #{userId},
+            #{invalidState},
+            #{merchantName}
+        </trim>
+
+    </update>
 
 
 </mapper>

@@ -17,6 +17,8 @@ public final class DateUtil {
 
     public static final String HOUR = "HH";
 
+    public static final String DATE_19 = "yyyy-MM-dd HH:mm:ss";
+
     public static String getChar14() {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_14));
     }
@@ -58,6 +60,21 @@ public final class DateUtil {
     public static String getUTCToChar14(Long utcTime){
         LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(utcTime), ZoneOffset.of("+8"));
         return localDateTime.format(DateTimeFormatter.ofPattern(DATE_14));
+    }
+
+    /**
+     *
+     * @param inputDateTime 输入时间
+     * @param inPattern     输入时间格式
+     * @param outPattern    输出日期格式
+     * @return
+     */
+    public static String convert(String inputDateTime,String inPattern, String outPattern){
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(inPattern);
+        LocalDateTime dateTime = LocalDateTime.parse(inputDateTime, inputFormatter);
+        // 格式化为目标格式的字符串
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern(outPattern);
+        return dateTime.format(outputFormatter);
     }
 
 

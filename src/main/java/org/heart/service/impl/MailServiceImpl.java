@@ -219,7 +219,7 @@ public class MailServiceImpl implements MailService {
                 String disposition = mPart.getDisposition();
                 if ((disposition != null) && ((disposition.equals(Part.ATTACHMENT)) || (disposition.equals(Part.INLINE)))) {
                     fileName = mPart.getFileName();
-                    if (fileName.toLowerCase().indexOf("gb2312") != -1) {
+                    if (fileName.toLowerCase().indexOf("gb18030") != -1) {
                         fileName = MimeUtility.decodeText(fileName);
                     }
                     return saveFile(fileName, mPart.getInputStream());
@@ -228,7 +228,7 @@ public class MailServiceImpl implements MailService {
                     saveAttachment(mPart);
                 } else {
                     fileName = mPart.getFileName();
-                    if ((fileName != null) && (fileName.toLowerCase().indexOf("GB2312") != -1)) {
+                    if ((fileName != null) && (fileName.toLowerCase().indexOf("gb18030") != -1)) {
                         fileName = MimeUtility.decodeText(fileName);
                         return saveFile(fileName, mPart.getInputStream());
                     }
