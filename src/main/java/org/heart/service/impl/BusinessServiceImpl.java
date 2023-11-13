@@ -2,6 +2,7 @@ package org.heart.service.impl;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
+import org.apache.commons.lang3.StringUtils;
 import org.heart.config.UserinfoConfig;
 import org.heart.dao.BillTradeDao;
 import org.heart.dto.BillTradeDTO;
@@ -79,6 +80,9 @@ public class BusinessServiceImpl implements BusinessService {
                     BillUserinfoDTO billUserinfoDTO = userinfoConfig.searchUserinfo(mailUsername);
                     //解压附件
                     String csvUrl = zipService.unZip(storeFile, AttachPath + File.separator + "bill", billUserinfoDTO.getAliBillPassword());
+                    if(StringUtils.isBlank(csvUrl)){
+                        return;
+                    }
                     //解析csv
                     this.getCsvDataManual(csvUrl, mailUsername);
                 }
@@ -96,7 +100,7 @@ public class BusinessServiceImpl implements BusinessService {
                 if(i == 4){
                     LOGGER.info("{}", lines.get(i));
                 }
-                if(i > 25){
+                if(i >= 25){
                     String[] str = lines.get(i).split(",");
                     BillTradeDTO billTradeDTO = new BillTradeDTO();
                     billTradeDTO.setTradeTime(DateUtil.convert(str[0],DateUtil.DATE_19, DateUtil.DATE_14));
@@ -109,8 +113,8 @@ public class BusinessServiceImpl implements BusinessService {
                     billTradeDTO.setAmount(amount.longValue());
                     billTradeDTO.setPaymentMethod(str[7]);
                     billTradeDTO.setTradeStatus(str[8]);
-                    billTradeDTO.setTradeOrderId(str[9]);
-                    billTradeDTO.setMerchantOrderId(str[10]);
+                    billTradeDTO.setTradeOrderId(str[9].trim());
+                    billTradeDTO.setMerchantOrderId(str[10].trim());
                     billTradeDTO.setUserId(mailUsername);
                     billTradeDTO.setInvalidState("1");
                     billTradeDTO.setCreateTime(DateUtil.getChar14());
@@ -121,12 +125,5 @@ public class BusinessServiceImpl implements BusinessService {
         }catch (Exception e){
             LOGGER.error("CSV文件读取异常", e);
         }
-    }
-
-    public static void main(String[] args) throws Exception{
-        List<String> lines = Files.readAllLines(Paths.get("E:\\temp\\bill\\alipay_record_20231106_163622.csv"),Charset.forName("GBK"));
-        lines.forEach(a -> {
-            System.out.println(a);
-        });
     }
 }
